@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import {Image} from './Image';
+import { Image } from './Image';
 /*
 export interface Project {
     id: string;
@@ -38,26 +38,26 @@ export const ProjectSchema = new mongoose.Schema({
 
 @Schema()
 export class Project {
-    @Prop({
-        required: true
-    })
-    title: string;
-    @Prop()
-    subtitle?: string;
-    @Prop({
-        required: true
-    })
-    description: string;
-    @Prop({
-        required: true
-    })
-    at: Date;
-    @Prop({
-        required: true
-    })
-    url: string;
-    @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: Image.name })
-    images: Image[];
+  @Prop({
+    required: true,
+  })
+  title: string;
+  @Prop()
+  subtitle?: string;
+  @Prop({
+    required: true,
+  })
+  description: string;
+  @Prop({
+    required: true,
+  })
+  at: Date;
+  @Prop({
+    required: true,
+  })
+  url: string;
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: Image.name })
+  images: Image[];
 }
 
 export type ProjectDocument = Project & mongoose.Document;

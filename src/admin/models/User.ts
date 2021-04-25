@@ -1,7 +1,9 @@
-import { Prop, SchemaFactory } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from 'mongoose';
 
+@Schema()
 export class User {
+    id: string;
     @Prop()
     username: string;
     @Prop()
