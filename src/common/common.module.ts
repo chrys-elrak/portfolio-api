@@ -5,6 +5,9 @@ import { Image, ImageSchema } from './models/Image';
 import { ProjectService } from './services/project.service';
 import { ProjectController } from 'src/public/controllers/project.controller';
 import { ConfigModule } from '@nestjs/config';
+import { Message, MessageSchema } from './models/Message';
+import { MessageController } from './controllers/message.controller';
+import { MessageService } from './services/message.service';
 
 const models = [
   {
@@ -15,6 +18,10 @@ const models = [
     name: Image.name,
     schema: ImageSchema,
   },
+  {
+    name: Message.name,
+    schema: MessageSchema,
+  },
 ];
 
 @Module({
@@ -23,7 +30,7 @@ const models = [
     ConfigModule.forRoot({ isGlobal: true }),
   ],
   exports: [MongooseModule.forFeature(models), ProjectService],
-  controllers: [ProjectController],
-  providers: [ProjectService],
+  controllers: [ProjectController, MessageController],
+  providers: [ProjectService, MessageService],
 })
 export class CommonModule {}
