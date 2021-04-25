@@ -6,11 +6,14 @@ import {
   Param,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { IResponse } from 'src/common/interfaces/IResponse';
 import { Message } from 'src/common/models/Message';
 import { MessageService } from 'src/common/services/message.service';
+import { JwtAuthGuard } from '../jwt.auth-guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('/admin/messages')
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}

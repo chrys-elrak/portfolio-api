@@ -5,10 +5,11 @@ import { ProjectService } from 'src/common/services/project.service';
 import { CreateProjectDto } from '../dto/create-project.dto';
 import { JwtAuthGuard } from '../jwt.auth-guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('/admin/projects')
 export class ProjectController {
     constructor(private readonly projectService: ProjectService) {}
-    @UseGuards(JwtAuthGuard)
+    
     @Post(['/create', '/'])
     async createProject(@Body() body: CreateProjectDto) {
         this.projectService.create(body);
@@ -17,7 +18,7 @@ export class ProjectController {
             message: 'Project created successfully'
         } as IResponse<any>;
     }
-    @UseGuards(JwtAuthGuard)
+    
     @Put(['/update/:id', '/:id'])
     async updateProject(@Param() params: {id: string}, @Body() body: CreateProjectDto) {
         this.projectService.update(params.id, body);
@@ -26,7 +27,7 @@ export class ProjectController {
             message: 'Project updated successfully'
         } as IResponse<any>;
     }
-    @UseGuards(JwtAuthGuard)
+    
     @Delete(['/delete/:id', '/:id'])
     async deleteProject(@Param() params: {id: string}) {
         if (isValidObjectId(params.id)) {
