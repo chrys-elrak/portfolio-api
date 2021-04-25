@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { CreateProjectDto } from 'src/admin/dto/create-project.dto';
 import { Image } from '../models/Image';
 import { Project, ProjectDocument } from '../models/Project';
 
@@ -16,6 +17,11 @@ async findAll(): Promise<Project[]> {
 async findOneById(id: string): Promise<Project> {
     return await this.ProjectModel.findById(id)
     .populate(Image.name, {});
+}
+
+async create(body: CreateProjectDto): Promise<void> {
+  await this.ProjectModel.create(body);
+
 }
 
 }
