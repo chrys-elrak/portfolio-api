@@ -14,7 +14,6 @@ export class UserService {
             throw new ForbiddenException('username aready exist');
         }
         const newUser = new this.userModel(body);
-        await newUser.save();
         return newUser;
     }
 
