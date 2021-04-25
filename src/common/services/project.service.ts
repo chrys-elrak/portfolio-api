@@ -7,10 +7,15 @@ import { Project, ProjectDocument } from '../models/Project';
 
 @Injectable()
 export class ProjectService {
+constructor(@InjectModel(Project.name) private readonly ProjectModel: Model<ProjectDocument>) {}
+
 async update(id: string, body: CreateProjectDto) {
     await this.ProjectModel.findByIdAndUpdate(id, body);
 }
-constructor(@InjectModel(Project.name) private readonly ProjectModel: Model<ProjectDocument>) {}
+
+async delete(id: string) {
+  await this.ProjectModel.findByIdAndDelete(id);
+}
 
 async findAll(): Promise<Project[]> {
     return await this.ProjectModel.find({})

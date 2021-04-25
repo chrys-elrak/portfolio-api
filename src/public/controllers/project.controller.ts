@@ -26,6 +26,6 @@ export class ProjectController {
             success: true,
           } as IResponse<Project>;
        }
-    throw new NotFoundException();
+       throw new NotFoundException('Project not found');
   }
 }
