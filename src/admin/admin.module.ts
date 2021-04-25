@@ -8,6 +8,8 @@ import { UserService } from './services/user.service';
 import * as brycpt from 'bcrypt';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import { MessageController } from './controllers/message.controller';
+import { MessageService } from 'src/common/services/message.service';
 console.log(process.env.TOKEN_SECRET);
 
 @Module({
@@ -34,7 +36,7 @@ console.log(process.env.TOKEN_SECRET);
     ]),
   ],
   exports: [JwtModule],
-  controllers: [AuthenticationController, ProjectController],
-  providers: [UserService, JwtStrategy],
+  controllers: [AuthenticationController, ProjectController, MessageController],
+  providers: [UserService, JwtStrategy, MessageService],
 })
 export class AdminModule {}

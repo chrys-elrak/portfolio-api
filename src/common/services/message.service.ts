@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { isValidObjectId, Model } from 'mongoose';
 import { CreateMessageDto } from '../dto/create-message.dto';
 import { Message, MessageDocument } from '../models/Message';
 
@@ -20,11 +20,36 @@ export class MessageService {
       });
   }
 
-  delete(id: string) {}
+  async deleteOne(id: string): Promise<void> {
+    if (!isValidObjectId(id)) {
+      throw new NotFoundException('message not found');
+    }
+    await this.messageModel.findByIdAndDelete(id);
+  }
 
-  getAll() {}
+  async deleteAll(): Promise<void> {
+    await this.messageModel.remove({});
+  }
 
-  getOne(id: string) {}
+  async deleteSome(ids: string[]) {
+    if (ids.some(id => !isValidObjectId(id))) {
+      throw new NotFoundException('message not found');
+    }
+    await this.messageModel.deleteMany({ $id: {$in: ids} });
+  }
 
-  reply(id: string, content) {}
+  async getAll(): Promise<Message[]> {
+    return await this.messageModel.find();
+  }
+
+  async getOneById(id: string): Promise<Message> {
+    if (!isValidObjectId(id)) {
+      throw new NotFoundException('message not found');
+    }
+    return await this.messageModel.findById(id);
+  }
+
+  reply(id: string, content) {
+    // TODO: send mail and store response
+  }
 }
