@@ -13,10 +13,10 @@ import { ConfigModule } from '@nestjs/config';
     MongooseModule.forRoot(process.env.DB_HOST, {}),
     ConfigModule.forRoot({
       isGlobal: true,
-    })
+    }),
   ],
   controllers: [AppController],
   providers: [ProjectService, AppService],
 })
 export class AppModule {}
-console.log(process.env.DB_HOST)
+console.log(process.env.DB_HOST);

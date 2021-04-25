@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { Message, MessageSchema } from './models/Message';
 import { MessageController } from './controllers/message.controller';
 import { MessageService } from './services/message.service';
+import { MulterModule } from '@nestjs/platform-express';
 
 const models = [
   {
@@ -28,6 +29,9 @@ const models = [
   imports: [
     MongooseModule.forFeature(models),
     ConfigModule.forRoot({ isGlobal: true }),
+    MulterModule.register({
+      dest: './upload',
+    })
   ],
   exports: [MongooseModule.forFeature(models), ProjectService],
   controllers: [ProjectController, MessageController],

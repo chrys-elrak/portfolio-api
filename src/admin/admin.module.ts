@@ -10,7 +10,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { MessageController } from './controllers/message.controller';
 import { MessageService } from 'src/common/services/message.service';
-console.log(process.env.TOKEN_SECRET);
+import { ImageService } from './services/image.service';
 
 @Module({
   imports: [
@@ -37,6 +37,6 @@ console.log(process.env.TOKEN_SECRET);
   ],
   exports: [JwtModule],
   controllers: [AuthenticationController, ProjectController, MessageController],
-  providers: [UserService, JwtStrategy, MessageService],
+  providers: [UserService, JwtStrategy, MessageService, ImageService],
 })
 export class AdminModule {}

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateProjectDto } from 'src/admin/dto/create-project.dto';
-import { Image } from '../models/Image';
 import { Project, ProjectDocument } from '../models/Project';
 
 @Injectable()
@@ -18,18 +17,20 @@ async delete(id: string) {
 }
 
 async findAll(): Promise<Project[]> {
-    return await this.ProjectModel.find({})
-    .populate(Image.name, {});
+    return await this.ProjectModel.find()
+    .populate('images');
 }
 
 async findOneById(id: string): Promise<Project> {
     return await this.ProjectModel.findById(id)
-    .populate(Image.name, {});
+    .populate('images');
 }
 
-async create(body: CreateProjectDto): Promise<void> {
-  await this.ProjectModel.create(body);
-
+async create(body: CreateProjectDto, imagesIds: string[]): Promise<Project> {
+  return await this.ProjectModel.create({
+    ...body,
+    images: imagesIds
+  });
 }
 
 }

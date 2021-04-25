@@ -1,3 +1,4 @@
+import { Optional } from '@nestjs/common';
 import { Type } from 'class-transformer';
 import { IsString, IsDate, IsOptional, IsEmpty, IsNotEmpty } from 'class-validator';
 
@@ -7,7 +8,7 @@ export class CreateProjectDto {
   title: string;
 
   @IsString()
-  @IsEmpty()
+  @Optional()
   subtitle?: string;
 
   @IsString()
