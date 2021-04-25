@@ -7,8 +7,12 @@ import { Project, ProjectDocument } from '../models/Project';
 export class ProjectService {
 constructor(@InjectModel(Project.name) private readonly ProjectModel: Model<ProjectDocument>) {}
 
-async getAll(): Promise<Project[]> {
+async findAll(): Promise<Project[]> {
     return await this.ProjectModel.find({});
+}
+
+async findOneById(id: string): Promise<Project> {
+    return await this.ProjectModel.findById(id);
 }
 
 }
