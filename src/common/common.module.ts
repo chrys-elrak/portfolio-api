@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Project, ProjectSchema } from './models/Project';
 import { Image, ImageSchema} from './models/Image';
 import { ProjectService } from './services/project.service';
+import { ProjectController } from 'src/public/controllers/project.controller';
 
 const models = [
     {
@@ -18,7 +19,7 @@ const models = [
 @Module({
   imports: [MongooseModule.forFeature(models)],
   exports: [MongooseModule.forFeature(models), ProjectService],
-  controllers: [],
+  controllers: [ProjectController],
   providers: [ProjectService],
 })
 export class CommonModule {}

@@ -1,4 +1,3 @@
-import { ProjectController } from './admin/controllers/project.controller';
 import { AdminModule } from './admin/admin.module';
 import { CommonModule } from './common/common.module';
 import { ProjectService } from './common/services/project.service';
@@ -16,8 +15,7 @@ import { config } from './config';
     PublicModule,
     MongooseModule.forRoot(config.dbUri, {}),
   ],
-  controllers: [
-        ProjectController, AppController],
+  controllers: [AppController],
   providers: [ProjectService, AppService],
 })
 export class AppModule {}
