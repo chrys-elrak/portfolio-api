@@ -1,4 +1,5 @@
 export const config = {
     dbUri: "mongodb://localhost:27017/portfolio",
-    secret: 'test'
+    tokenSecret: 'test',
+    tokenExpire: '1h'
 }

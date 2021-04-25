@@ -14,9 +14,9 @@ import { JwtStrategy } from './jwt.strategy';
   imports: [
     CommonModule,
     JwtModule.register({
-        secret: config.secret,
+        secret: config.tokenSecret,
         signOptions: {
-            expiresIn: '60s'
+            expiresIn: config.tokenExpire
         }
     }),
     MongooseModule.forFeatureAsync([
