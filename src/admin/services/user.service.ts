@@ -13,7 +13,7 @@ export class UserService {
         if (user) {
             throw new ForbiddenException('username aready exist');
         }
-        const newUser = new this.userModel(body);
+        const newUser = this.userModel.create(body);
         return newUser;
     }
 
