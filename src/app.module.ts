@@ -6,16 +6,19 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { config } from './config';
-
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     AdminModule,
     CommonModule,
     PublicModule,
-    MongooseModule.forRoot(config.dbUri, {}),
+    MongooseModule.forRoot(process.env.DB_HOST, {}),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    })
   ],
   controllers: [AppController],
   providers: [ProjectService, AppService],
 })
 export class AppModule {}
+console.log(process.env.DB_HOST)
