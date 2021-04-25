@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 
 @Schema()
-class ImageClass {
+export class Image {
   @Prop({
     required: true,
   })
@@ -13,9 +13,10 @@ class ImageClass {
   url: string;
   @Prop({
     default: {},
+    type: Object
   })
-  meta: any;
+  meta: Object;
 }
 
-export type Image = ImageClass & mongoose.Document;
-export const ImageSchema = SchemaFactory.createForClass(ImageClass);
+export type ImageDocument = Image & mongoose.Document;
+export const ImageSchema = SchemaFactory.createForClass(Image);

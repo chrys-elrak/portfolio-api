@@ -37,7 +37,7 @@ export const ProjectSchema = new mongoose.Schema({
 */
 
 @Schema()
-class ProjectClass {
+export class Project {
     @Prop({
         required: true
     })
@@ -56,9 +56,9 @@ class ProjectClass {
         required: true
     })
     url: string;
-    @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Image' })
+    @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: Image.name })
     images: Image[];
 }
 
-export type Project = ProjectClass & mongoose.Document;
-export const ProjectSchema = SchemaFactory.createForClass(ProjectClass);
+export type ProjectDocument = Project & mongoose.Document;
+export const ProjectSchema = SchemaFactory.createForClass(Project);
