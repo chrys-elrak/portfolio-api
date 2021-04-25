@@ -46,7 +46,11 @@ export class MessageService {
     if (!isValidObjectId(id)) {
       throw new NotFoundException('message not found');
     }
-    return await this.messageModel.findById(id);
+    const message = await this.messageModel.findById(id);
+    if (!message) {
+      throw new NotFoundException('message not found');
+    }
+    return message
   }
 
   reply(id: string, content) {
