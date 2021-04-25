@@ -18,7 +18,7 @@ import { CreateProjectDto } from '../dto/create-project.dto';
 import { JwtAuthGuard } from '../jwt.auth-guard';
 import { diskStorage } from 'multer';
 import * as crypto from 'crypto';
-import { createUserDto } from '../dto/create-user.dto';
+import cryptoRandomString from 'crypto-random-string';
 import { ImageService } from '../services/image.service';
 import { Project } from 'src/common/models/Project';
 
@@ -38,7 +38,7 @@ export class ProjectController {
         filename: (req, file, cb) => {
           const fileNameSplit = file.originalname.split('.');
           const fileExt = fileNameSplit[fileNameSplit.length - 1];
-          cb(null, `${crypto.createHash('md5').digest('hex')}.${fileExt}`);
+          cb(null, `${crypto.randomBytes(50).toString('hex')}.${fileExt}`);
         },
       }),
     }),
