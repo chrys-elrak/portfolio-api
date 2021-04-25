@@ -19,10 +19,10 @@ export class ProjectController {
   }
 
   @Get('/:id')
-  async getOne(@Param() id: string) {
-       if (isValidObjectId(id)) {
+  async getOne(@Param() params: {id: string}) {
+       if (isValidObjectId(params.id)) {
         return {
-            data: await this.projectService.findOneById(id),
+            data: await this.projectService.findOneById(params.id),
             success: true,
           } as IResponse<Project>;
        }

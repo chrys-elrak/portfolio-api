@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { IResponse } from 'src/common/interfaces/IResponse';
 import { ProjectService } from 'src/common/services/project.service';
 import { CreateProjectDto } from '../dto/create-project.dto';
@@ -13,6 +13,15 @@ export class ProjectController {
         return {
             success: true,
             message: 'Project created successfully'
+        } as IResponse<any>;
+    }
+    
+    @Put(['/update/:id', '/:id'])
+    async updateProject(@Param() params: {id: string}, @Body() body: CreateProjectDto) {
+        this.projectService.update(params.id, body);
+        return {
+            success: true,
+            message: 'Project updated successfully'
         } as IResponse<any>;
     }
 }
