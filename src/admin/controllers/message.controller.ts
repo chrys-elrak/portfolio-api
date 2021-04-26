@@ -19,19 +19,19 @@ export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
   @Get(['/all', '/'])
-  async getAllMessages() {
+  async getAllMessages(): Promise<IResponse<Message[]>> {
     const messages = await this.messageService.getAll();
     return { data: messages } as IResponse<Message[]>;
   }
 
   @Get('/:id')
-  async getOneMessage(@Param() params: { id: string }) {
+  async getOneMessage(@Param() params: { id: string }): Promise<IResponse<Message>> {
     const message = await this.messageService.getOneById(params.id);
     return { data: message, success: true } as IResponse<Message>;
   }
 
   @Delete('/deleteSome')
-  async deleteSomeMessage(@Query() q: { id: string[] }) {
+  async deleteSomeMessage(@Query() q: { id: string[] }): Promise<IResponse<void>> {
     await this.messageService.deleteSome(q.id);
     return {
       success: true,
@@ -40,7 +40,7 @@ export class MessageController {
   }
 
   @Delete('/deleteOne/:id')
-  async deleteOneMessage(@Param() params: { id: string }) {
+  async deleteOneMessage(@Param() params: { id: string }): Promise<IResponse<void>> {
     await this.messageService.deleteOne(params.id);
     return {
       success: true,
@@ -49,7 +49,7 @@ export class MessageController {
   }
 
   @Delete('/deleteAll')
-  async deleteAllMessage() {
+  async deleteAllMessage(): Promise<IResponse<void>> {
     await this.messageService.deleteAll();
     return {
       success: true,

@@ -18,7 +18,6 @@ import { CreateProjectDto } from '../dto/create-project.dto';
 import { JwtAuthGuard } from '../jwt.auth-guard';
 import { diskStorage } from 'multer';
 import * as crypto from 'crypto';
-import cryptoRandomString from 'crypto-random-string';
 import { ImageService } from '../services/image.service';
 import { Project } from 'src/common/models/Project';
 
@@ -46,7 +45,7 @@ export class ProjectController {
   async createProject(
     @UploadedFiles() files: Express.Multer.File[],
     @Body() body: CreateProjectDto,
-  ) {
+  ): Promise<IResponse<Project>> {
     const images = await this.imageService.createImage(files);
     const imageIds = images.map((image) => image.id);
     const project = await this.projectService.create(body, imageIds);
@@ -61,7 +60,7 @@ export class ProjectController {
   async updateProject(
     @Param() params: { id: string },
     @Body() body: CreateProjectDto,
-  ) {
+  ): Promise<IResponse<any>> {
     this.projectService.update(params.id, body);
     return {
       success: true,
@@ -70,7 +69,7 @@ export class ProjectController {
   }
 
   @Delete(['/delete/:id', '/:id'])
-  async deleteProject(@Param() params: { id: string }) {
+  async deleteProject(@Param() params: { id: string }) : Promise<IResponse<any> | NotFoundException> {
     if (isValidObjectId(params.id)) {
       this.projectService.delete(params.id);
       return {

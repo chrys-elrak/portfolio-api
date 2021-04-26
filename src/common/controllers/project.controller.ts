@@ -11,7 +11,7 @@ export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
   @Get('/')
-  async getProjects() {
+  async getProjects(): Promise<IResponse<Project[]>> {
     return {
       data: await this.projectService.findAll(),
       success: true,
@@ -19,7 +19,7 @@ export class ProjectController {
   }
 
   @Get('/:id')
-  async getOne(@Param() params: {id: string}) {
+  async getOne(@Param() params: {id: string}): Promise<IResponse<Project> | NotFoundException> {
        if (isValidObjectId(params.id)) {
         return {
             data: await this.projectService.findOneById(params.id),

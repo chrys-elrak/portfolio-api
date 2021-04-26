@@ -21,7 +21,7 @@ export class AuthenticationController {
   ) {}
 
   @Post('/login')
-  async login(@Body() body: loginUserDto) {
+  async login(@Body() body: loginUserDto): Promise<IResponse<{access_token: string}> | NotFoundException | UnauthorizedException> {
     const user: User = await this.userService.getUser({ username: body.login });
     if (!user) {
       throw new NotFoundException('account not found');
@@ -35,7 +35,7 @@ export class AuthenticationController {
   }
 
   @Post('/register')
-  async register(@Body() body: createUserDto) {
+  async register(@Body() body: createUserDto): Promise<IResponse<User>> {
     const user = await this.userService.createUser(body);
     return { success: true, status: 200, data: user } as IResponse<User>;
   }

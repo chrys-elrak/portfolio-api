@@ -8,8 +8,8 @@ export class MessageController {
     constructor(private readonly messageService: MessageService) {}
 
     @Post()
-    async postMessage(@Body() body: CreateMessageDto) {
+    async postMessage(@Body() body: CreateMessageDto): Promise<IResponse<void>> {
         await this.messageService.create(body);
-        return {success: true} as IResponse<any>;
+        return {success: true, message: 'message sent successfully'} as IResponse<void>;
     }
 }
