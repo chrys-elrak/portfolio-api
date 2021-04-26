@@ -20,7 +20,7 @@ export class MessageService {
       });
   }
 
-  async deleteOne(id: string): Promise<void> {
+  async deleteOne(id: string): Promise<void> | never {
     if (!isValidObjectId(id)) {
       throw new NotFoundException('message not found');
     }
@@ -31,7 +31,7 @@ export class MessageService {
     await this.messageModel.remove({});
   }
 
-  async deleteSome(ids: string[]) {
+  async deleteSome(ids: string[]): Promise<void> | never {
     if (ids.some(id => !isValidObjectId(id))) {
       throw new NotFoundException('message not found');
     }
@@ -42,7 +42,7 @@ export class MessageService {
     return await this.messageModel.find();
   }
 
-  async getOneById(id: string): Promise<Message> {
+  async getOneById(id: string): Promise<Message> | never {
     if (!isValidObjectId(id)) {
       throw new NotFoundException('message not found');
     }

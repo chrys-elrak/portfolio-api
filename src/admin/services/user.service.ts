@@ -8,7 +8,7 @@ import { User, UserDocument } from '../models/User';
 export class UserService {
     constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) {}
 
-    async createUser(body: createUserDto): Promise<User | ForbiddenException> {
+    async createUser(body: createUserDto): Promise<User> | never {
         const user = await this.userModel.findOne({username: body.username});
         if (user) {
             throw new ForbiddenException('username aready exist');

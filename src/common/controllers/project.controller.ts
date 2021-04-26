@@ -19,7 +19,7 @@ export class ProjectController {
   }
 
   @Get('/:id')
-  async getOne(@Param() params: {id: string}): Promise<IResponse<Project> | NotFoundException> {
+  async getOne(@Param() params: {id: string}): Promise<IResponse<Project>> | never {
        if (isValidObjectId(params.id)) {
         return {
             data: await this.projectService.findOneById(params.id),

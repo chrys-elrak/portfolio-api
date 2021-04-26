@@ -69,7 +69,7 @@ export class ProjectController {
   }
 
   @Delete(['/delete/:id', '/:id'])
-  async deleteProject(@Param() params: { id: string }) : Promise<IResponse<any> | NotFoundException> {
+  async deleteProject(@Param() params: { id: string }) : Promise<IResponse<any>> | never {
     if (isValidObjectId(params.id)) {
       this.projectService.delete(params.id);
       return {

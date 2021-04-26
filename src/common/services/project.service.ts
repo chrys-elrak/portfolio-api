@@ -8,11 +8,11 @@ import { Project, ProjectDocument } from '../models/Project';
 export class ProjectService {
 constructor(@InjectModel(Project.name) private readonly ProjectModel: Model<ProjectDocument>) {}
 
-async update(id: string, body: CreateProjectDto) {
+async update(id: string, body: CreateProjectDto): Promise<void> {
     await this.ProjectModel.findByIdAndUpdate(id, body);
 }
 
-async delete(id: string) {
+async delete(id: string): Promise<void> {
   await this.ProjectModel.findByIdAndDelete(id);
 }
 

@@ -37,6 +37,7 @@ export class AuthenticationController {
   @Post('/register')
   async register(@Body() body: createUserDto): Promise<IResponse<User>> {
     const user = await this.userService.createUser(body);
+    delete user.username;
     return { success: true, status: 200, data: user } as IResponse<User>;
   }
 }
