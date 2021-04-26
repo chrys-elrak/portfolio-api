@@ -1,22 +1,18 @@
 import { AdminModule } from './admin/admin.module';
 import { CommonModule } from './common/common.module';
-import { ProjectService } from './common/services/project.service';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule } from '@nestjs/config';
+// import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     AdminModule,
     CommonModule,
     MongooseModule.forRoot(process.env.DB_HOST, {}),
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
+    // ConfigModule.forRoot({
+    //   isGlobal: true,
+    // })
   ],
-  controllers: [AppController],
-  providers: [ProjectService, AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
-console.log(process.env.DB_HOST);

@@ -29,8 +29,8 @@ const mongooseFeatures = MongooseModule.forFeature([
     mongooseFeatures,
     ConfigModule.forRoot({ isGlobal: true }),
     MulterModule.register({
-      dest: './upload',
-    }),
+      dest: './upload'
+    })
   ],
   exports: [mongooseFeatures, ProjectService],
   controllers: [ProjectController, MessageController],
