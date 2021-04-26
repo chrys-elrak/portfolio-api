@@ -6,7 +6,7 @@ import { BadRequestException } from '@nestjs/common';
 @Injectable()
 export class ValidationPipe implements PipeTransform {
   
-  async transform(value: any, { metatype }: ArgumentMetadata) {
+  async transform(value: any, { metatype }: ArgumentMetadata): Promise<any | BadRequestException> {
     if (!metatype || !this.toValidate(metatype)) {
       return value;
     }
