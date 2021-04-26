@@ -8,7 +8,7 @@ import {Image} from '../../common/models/Image';
 export class ImageService {
     constructor(@InjectModel(Image.name) private readonly imageModel: Model<ImageDocument>) {}
 
-    async createImage(files: Express.Multer.File[]) {
+    async createImage(files: Express.Multer.File[]): Promise<ImageDocument[]> {
         const images = await this.imageModel.insertMany(files.map(file => ({
             name: file.filename,
             url: `${process.env.HOST}:${process.env.PORT}/public/${file.filename}`,
