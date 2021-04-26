@@ -5,13 +5,13 @@ export class createUserDto {
     @MinLength(5)
     @IsLowercase()
     @IsAlphanumeric()
-    @IsNotEmpty()
     @IsString()
+    @IsNotEmpty()
     username: string;
 
     @MaxLength(50)
     @MinLength(6)
-    @IsNotEmpty()
     @IsString()
+    @IsNotEmpty()
     password: string;
 }
