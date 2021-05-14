@@ -10,6 +10,9 @@ export class MessageController {
     @Post()
     async postMessage(@Body() body: CreateMessageDto): Promise<IResponse<void>> {
         await this.messageService.create(body);
+        if (body.sendMeToo) {
+            // TODO: send mail to the user
+        }
         return {success: true, message: 'message sent successfully'} as IResponse<void>;
     }
 }

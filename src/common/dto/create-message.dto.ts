@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator";
+import { IsEmail, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
 
 export class CreateMessageDto {
     @IsEmail()
@@ -20,5 +20,8 @@ export class CreateMessageDto {
     @IsString()
     @IsNotEmpty()
     name: string;
+
+    @IsOptional()
+    sendMeToo: boolean;
 
 }
