@@ -17,7 +17,7 @@ export class MessageController {
                 to: body.email,
                 replyTo: process.env.REPLY_EMAIL,
                 subject: body.title,
-                text: body.content
+                html: body.content
             });
         }
         return { success: true, message: 'message sent successfully' } as IResponse<void>;
