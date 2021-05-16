@@ -14,7 +14,7 @@ export class MessageController {
         if (body.sendMeToo) {
             await this.sendGridService.send({
                 from: process.env.FROM_EMAIL,
-                cc: body.email,
+                to: body.email,
                 replyTo: process.env.REPLY_EMAIL,
                 subject: body.title,
                 text: body.content
