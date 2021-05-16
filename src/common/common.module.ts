@@ -9,6 +9,8 @@ import { Message, MessageSchema } from './models/Message';
 import { MessageController } from './controllers/message.controller';
 import { MessageService } from './services/message.service';
 import { MulterModule } from '@nestjs/platform-express';
+import { SendGridModule } from '@ntegral/nestjs-sendgrid';
+
 const mongooseFeatures = MongooseModule.forFeature([
   {
     name: Project.name,
@@ -30,6 +32,9 @@ const mongooseFeatures = MongooseModule.forFeature([
     ConfigModule.forRoot({ isGlobal: true }),
     MulterModule.register({
       dest: './uploads'
+    }),
+    SendGridModule.forRoot({
+      apiKey: process.env.SENDGRID_API_KEY
     })
   ],
   exports: [mongooseFeatures, ProjectService],
