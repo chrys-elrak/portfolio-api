@@ -18,7 +18,7 @@ import { ImageService } from './services/image.service';
     JwtModule.register({
         secret: process.env.TOKEN_SECRET,
         signOptions: {
-            expiresIn: process.env.TOKEN_EXPIRES
+            expiresIn: process.env.TOKEN_EXPIRATION_TIME
         }
     }),
     MongooseModule.forFeatureAsync([
