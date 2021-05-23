@@ -32,7 +32,8 @@ export class AuthenticationController {
       throw new UnauthorizedException('password incorect');
     }
     const token = await this.jwtService.sign({sub: user.id});
-    return {data: {access_token: token}, success: true} as IResponse<{access_token: string}>;
+    delete user.password;
+    return {data: {access_token: token, user}, success: true} as IResponse<{access_token: string}>;
   }
 
   @Post('/register')
