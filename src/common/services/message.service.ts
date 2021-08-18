@@ -11,13 +11,17 @@ export class MessageService {
     private readonly messageModel: Model<MessageDocument>,
   ) {}
 
-  async create(body: CreateMessageDto): Promise<void> {
-      const message = await this.messageModel.create({
+  async create(body: CreateMessageDto) {
+      return await this.messageModel.create({
         email: body.email,
         title: body.title,
         name: body.title,
         content: body.content  
       });
+  }
+
+  async findOneAndUpdate(id: string, update) {
+    return await this.messageModel.findByIdAndUpdate(id, update);
   }
 
   async deleteOne(id: string): Promise<void> | never {
@@ -39,7 +43,7 @@ export class MessageService {
   }
 
   async getAll(): Promise<Message[]> {
-    return await this.messageModel.find();
+    return await this.messageModel.find({}).sort('-date');
   }
 
   async getOneById(id: string): Promise<Message> | never {

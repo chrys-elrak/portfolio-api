@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -19,14 +20,24 @@ export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
   @Get(['/all', '/'])
-  async getAllMessages(): Promise<IResponse<Message[]>> {
-    const messages = await this.messageService.getAll();
-    return { data: messages } as IResponse<Message[]>;
+  async getAllMessages(@Query() q): Promise<Message[]> {
+    const unread = q['unread'] && q['unread'] === 'true';
+    let messages = await this.messageService.getAll();
+    if (unread) {
+      messages = messages.filter(message => message.seen === false);
+    }
+    return messages;
   }
 
   @Get('/:id')
   async getOneMessage(@Param() params: { id: string }): Promise<IResponse<Message>> {
     const message = await this.messageService.getOneById(params.id);
+    return { data: message, success: true } as IResponse<Message>;
+  }
+
+  @Put('/:id/seen')
+  async markAsSeen(@Param() params: { id: string }): Promise<IResponse<Message>> {
+    const message = await this.messageService.findOneAndUpdate(params.id, { seen: true });
     return { data: message, success: true } as IResponse<Message>;
   }
 

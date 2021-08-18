@@ -11,6 +11,14 @@ export class Message {
     title: string;
     @Prop()
     content: string;
+    @Prop({
+        default: false
+    })
+    seen: boolean;
+    @Prop({
+        default: Date.now
+    })
+    date: Date;
 }
 
 export type MessageDocument = Message & mongoose.Document;

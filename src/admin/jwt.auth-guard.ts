@@ -1,7 +1,6 @@
 import { ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
-import { profileEnd } from 'node:console';
 import { ExtractJwt } from 'passport-jwt';
 
 @Injectable()
