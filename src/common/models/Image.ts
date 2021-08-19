@@ -15,7 +15,7 @@ export class Image {
     default: {},
     type: Object
   })
-  meta: Object;
+  meta: any;
 }
 
 export type ImageDocument = Image & mongoose.Document;
