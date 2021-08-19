@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Get,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -28,6 +29,11 @@ export class ProjectController {
     private readonly projectService: ProjectService,
     private readonly imageService: ImageService,
   ) {}
+
+  @Get('/')
+  async getProjects() {
+    return await this.projectService.findAll()
+  }
 
   @Post(['/create', '/'])
   @UseInterceptors(
@@ -59,23 +65,15 @@ export class ProjectController {
   @Put(['/update/:id', '/:id'])
   async updateProject(
     @Param() params: { id: string },
-    @Body() body: CreateProjectDto,
-  ): Promise<IResponse<any>> {
-    this.projectService.update(params.id, body);
-    return {
-      success: true,
-      message: 'Project updated successfully',
-    } as IResponse<any>;
+    @Body() body,
+  ) {
+    return this.projectService.update(params.id, body);
   }
 
   @Delete(['/delete/:id', '/:id'])
-  async deleteProject(@Param() params: { id: string }) : Promise<IResponse<any>> | never {
+  async deleteProject(@Param() params: { id: string }) {
     if (isValidObjectId(params.id)) {
-      this.projectService.delete(params.id);
-      return {
-        success: true,
-        message: 'Project deleted successfully',
-      } as IResponse<any>;
+      return this.projectService.delete(params.id);
     }
     throw new NotFoundException('Project not found');
   }

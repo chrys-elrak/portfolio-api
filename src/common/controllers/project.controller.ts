@@ -12,7 +12,7 @@ export class ProjectController {
 
   @Get('/')
   async getProjects() {
-    return await this.projectService.findAll()
+    return await this.projectService.getAllPublished()
   }
 
   @Get('/:id')

@@ -58,6 +58,13 @@ export class Project {
   url: string;
   @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: Image.name })
   images: Image[];
+  @Prop(
+    {
+      type: Boolean,
+      default: false
+    }
+  )
+  published: boolean;
 }
 
 export type ProjectDocument = Project & mongoose.Document;

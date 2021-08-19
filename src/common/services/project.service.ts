@@ -21,6 +21,11 @@ async findAll(): Promise<Project[]> {
     .populate('images');
 }
 
+async getAllPublished(): Promise<Project[]> {
+  return await this.ProjectModel.find({ published: true })
+  .populate('images');
+}
+
 async findOneById(id: string): Promise<Project> {
     return await this.ProjectModel.findById(id)
     .populate('images');
