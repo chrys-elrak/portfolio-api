@@ -11,21 +11,21 @@ export class MessageService {
     @InjectModel(Message.name)
     private readonly messageModel: Model<MessageDocument>,
     private notificationService: NotificationService
-  ) {}
+  ) { }
 
   async create(body: CreateMessageDto) {
-    this.notificationService.createNotification(
+    await this.notificationService.createNotification(
       {
         title: `New message from ${body.name}`,
         content: body,
-      } 
-    )
-      return await this.messageModel.create({
-        email: body.email,
-        title: body.title,
-        name: body.title,
-        content: body.content  
-      });
+      }
+    );
+    return await this.messageModel.create({
+      email: body.email,
+      title: body.title,
+      name: body.title,
+      content: body.content
+    });
   }
 
   async findOneAndUpdate(id: string, update) {
@@ -47,7 +47,7 @@ export class MessageService {
     if (ids.some(id => !isValidObjectId(id))) {
       throw new NotFoundException('message not found');
     }
-    await this.messageModel.deleteMany({ $id: {$in: ids} });
+    await this.messageModel.deleteMany({ $id: { $in: ids } });
   }
 
   async getAll(): Promise<Message[]> {
