@@ -10,6 +10,8 @@ import { MessageController } from './controllers/message.controller';
 import { MessageService } from './services/message.service';
 import { MulterModule } from '@nestjs/platform-express';
 import { SendGridModule } from '@ntegral/nestjs-sendgrid';
+import { Notification, NotificationSchema } from './models/Notification';
+import { NotificationService } from './services/notification.service';
 
 const mongooseFeatures = MongooseModule.forFeature([
   {
@@ -24,6 +26,10 @@ const mongooseFeatures = MongooseModule.forFeature([
     name: Message.name,
     schema: MessageSchema,
   },
+  {
+    name: Notification.name,
+    schema: NotificationSchema,
+  },
 ]);
 
 @Module({
@@ -37,8 +43,8 @@ const mongooseFeatures = MongooseModule.forFeature([
       apiKey: process.env.SENDGRID_API_KEY
     })
   ],
-  exports: [mongooseFeatures, ProjectService],
+  exports: [mongooseFeatures, ProjectService, NotificationService],
   controllers: [ProjectController, MessageController],
-  providers: [ProjectService, MessageService],
+  providers: [ProjectService, MessageService, NotificationService],
 })
 export class CommonModule {}

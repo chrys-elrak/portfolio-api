@@ -7,7 +7,7 @@ import {
   Param
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../jwt.auth-guard';
-import { NotificationService } from '../services/notification.service';
+import { NotificationService } from '../../common/services/notification.service';
 
 @UseGuards(JwtAuthGuard)
 @Controller('/admin/notifications')

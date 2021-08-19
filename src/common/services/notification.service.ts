@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Notification, NotificationDocument } from '../models/Notification';
+import { Notification, NotificationDocument, NotificationSchema } from '../models/Notification';
 
 @Injectable()
 export class NotificationService {
@@ -27,6 +27,10 @@ export class NotificationService {
     async getPaginateNotifications(start = 0, end = 5) {
       const notifs = await this.getAllNotifications();
       return notifs.slice(start, end);
+    }
+
+    async createNotification(notification: Notification) {
+      await this.notificationModel.create(notification);
     }
 
 }

@@ -12,12 +12,12 @@ export class Notification {
       default: false,
       type: Boolean
     })
-    date: Date;
+    seen?: boolean;
     @Prop({
       default: Date.now,
       type: Date
     })
-    seen: boolean;
+    date?: Date;
     @Prop({
       type: Object,
       default: {}

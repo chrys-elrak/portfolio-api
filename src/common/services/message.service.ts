@@ -3,15 +3,23 @@ import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model } from 'mongoose';
 import { CreateMessageDto } from '../dto/create-message.dto';
 import { Message, MessageDocument } from '../models/Message';
+import { NotificationService } from './notification.service';
 
 @Injectable()
 export class MessageService {
   constructor(
     @InjectModel(Message.name)
     private readonly messageModel: Model<MessageDocument>,
+    private notificationService: NotificationService
   ) {}
 
   async create(body: CreateMessageDto) {
+    this.notificationService.createNotification(
+      {
+        title: `New message from ${body.name}`,
+        content: body,
+      } 
+    )
       return await this.messageModel.create({
         email: body.email,
         title: body.title,

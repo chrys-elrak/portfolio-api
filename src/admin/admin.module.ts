@@ -13,8 +13,6 @@ import { MessageController } from './controllers/message.controller';
 import { MessageService } from 'src/common/services/message.service';
 import { ImageService } from './services/image.service';
 import { NotificationController } from './controllers/notification.controller';
-import { NotificationService } from './services/notification.service';
-import { Notification, NotificationSchema } from './models/Notification';
 
 @Module({
   imports: [
@@ -38,15 +36,10 @@ import { Notification, NotificationSchema } from './models/Notification';
         },
       },
     ]),
-    MongooseModule.forFeature([
-      {
-        name: Notification.name,
-        schema: NotificationSchema
-      }
-    ])
+    MongooseModule.forFeature([])
   ],
   exports: [JwtModule],
   controllers: [AuthenticationController, ProjectController, MessageController, NotificationController],
-  providers: [UserService, JwtStrategy, MessageService, ImageService, NotificationService],
+  providers: [UserService, JwtStrategy, MessageService, ImageService],
 })
 export class AdminModule { }
