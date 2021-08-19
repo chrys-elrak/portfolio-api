@@ -11,11 +11,8 @@ export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
   @Get('/')
-  async getProjects(): Promise<IResponse<Project[]>> {
-    return {
-      data: await this.projectService.findAll(),
-      success: true,
-    } as IResponse<Project[]>;
+  async getProjects() {
+    return await this.projectService.findAll()
   }
 
   @Get('/:id')
