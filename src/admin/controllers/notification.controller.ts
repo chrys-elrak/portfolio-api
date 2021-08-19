@@ -4,7 +4,8 @@ import {
   Get,
   Query,
   Delete,
-  Param
+  Param,
+  Put
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../jwt.auth-guard';
 import { NotificationService } from '../../common/services/notification.service';
@@ -31,9 +32,14 @@ export class NotificationController {
     return this.notificationsService.getPaginateNotifications(q['start'], q['end']);
   }
 
-  @Delete('/id')
+  @Delete('/:id')
   async deleteOne(@Param() p){
     return this.notificationsService.deleteOne(p['id']);
+  }
+
+  @Put('/:id')
+  async markAsSeen(@Param() p){
+    return this.notificationsService.markSeen(p['id']);
   }
 
   @Delete('/')

@@ -21,7 +21,11 @@ export class NotificationService {
     }
 
     async deleteOne(id: string) {
-      await this.notificationModel.findOneAndDelete({ id });
+      await this.notificationModel.findOneAndDelete({ _id: id });
+    }
+
+    async markSeen(id: string) {
+      await this.notificationModel.findOneAndUpdate({ _id: id }, { seen: true });
     }
 
     async getPaginateNotifications(start = 0, end = 5) {
