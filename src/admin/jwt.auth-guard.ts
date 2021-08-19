@@ -15,6 +15,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   canActivate(context: ExecutionContext) {
     // Add your custom authentication logic here
     // for example, call super.logIn(request) to establish a session.
+
     const req = context.switchToHttp().getRequest();
     const res = context.switchToHttp().getResponse();
     const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
@@ -25,6 +26,8 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     } catch(e) {
       if (e.message.includes('expired')) {
         renew = true;
+      } else {
+        throw e;
       }
     }
   
@@ -34,7 +37,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
           secret: process.env.JWT_REFRESH_TOKEN_SECRET
         });
         const renewToken = this.jwtService.sign({ sub: data.sub });
-        req.headers['authorization'] = `Bearer ${renewToken}`;
+        req.headers['Authorization'] = `Bearer ${renewToken}`;
         res.renewToken = renewToken;
       } catch (e) {
         throw e || new UnauthorizedException();
@@ -49,7 +52,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     // FEATURES: Handle role of user
     // You can throw an exception based on either "info" or "err" arguments
     if (err || !user) {
-      throw err || new UnauthorizedException();
+      throw info || new UnauthorizedException();
     }
     return user;
   }
