@@ -3,12 +3,11 @@ import {
   Controller,
   NotFoundException,
   Post,
-  Headers,
+  Query,
   UnauthorizedException,
   UseGuards,
   Req,
-  Res,
-  Header,
+  Res
 } from '@nestjs/common';
 import { IResponse } from 'src/common/interfaces/IResponse';
 import { createUserDto } from '../dto/create-user.dto';
@@ -46,11 +45,10 @@ export class AuthenticationController {
   }
 
   @Post('/register')
-  async register(@Headers() headers, @Body() body: createUserDto): Promise<IResponse<User>> {
-    if (headers.xheadertoken !== process.env.REGISTER_TOKEN_ADMIN) {
+  async register(@Query() q, @Body() body: createUserDto): Promise<IResponse<User>> {
+    if (q.xheadertoken !== process.env.REGISTER_TOKEN_ADMIN) {
       throw new UnauthorizedException();
     }
-    console.log(headers);
     const user = await this.userService.createUser(body);
     delete user.username;
     return { success: true, status: 200, data: user } as IResponse<User>;

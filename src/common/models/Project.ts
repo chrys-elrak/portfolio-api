@@ -65,6 +65,10 @@ export class Project {
     }
   )
   published: boolean;
+  @Prop({ type: Array })
+  comments: { userID: string, comment: string }[];
+  @Prop( { type: [mongoose.Types.ObjectId] })
+  likes: string[];
 }
 
 export type ProjectDocument = Project & mongoose.Document;

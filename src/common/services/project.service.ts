@@ -38,4 +38,12 @@ async create(body: CreateProjectDto, imagesIds: string[]): Promise<Project> {
   });
 }
 
+async comment(id: string, comment: { userID: string, comment: string }) {
+  await this.ProjectModel.findByIdAndUpdate(id, { $push: { comments: comment }}).exec();
+}
+
+async like(id: string, user: string) {
+  await this.ProjectModel.findByIdAndUpdate(id, { $push: { likes: user }}).exec();
+}
+
 }

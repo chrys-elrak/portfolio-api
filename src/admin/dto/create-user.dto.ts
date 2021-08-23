@@ -1,4 +1,4 @@
-import { IsAlphanumeric, IsLowercase, IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator";
+import { IsAlphanumeric, isEnum, IsLowercase, IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator";
 
 export class createUserDto {
     @MaxLength(20)
